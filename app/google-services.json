@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "93391063772",
+    "project_id": "mychatapp-40ac0",
+    "storage_bucket": "mychatapp-40ac0.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:93391063772:android:bfda8208c7972a18658219",
+        "android_client_info": {
+          "package_name": "com.androidsabari.chatapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "93391063772-dn5ecs8serci1rk6t45ue4gd62r5f5j4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDtbQ0FRkr7bMzduNTGkiA_r1SXh4N7__o"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "93391063772-dn5ecs8serci1rk6t45ue4gd62r5f5j4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
