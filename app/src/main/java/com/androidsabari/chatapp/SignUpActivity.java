@@ -9,15 +9,23 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
+
+import java.util.UUID;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -27,10 +35,14 @@ public class SignUpActivity extends AppCompatActivity {
     private TextInputEditText editTextEmailSignup,editTextPasswordSignup,editTextUsernameSignup;
     private Button buttonRegister;
     Boolean imageControl = false;
+    Uri imageUri;
 
     FirebaseAuth auth;
     FirebaseDatabase database;
     DatabaseReference reference;
+
+    FirebaseStorage firebaseStorage;
+    StorageReference storageReference;
 
 
     @Override
@@ -47,6 +59,8 @@ public class SignUpActivity extends AppCompatActivity {
         auth = FirebaseAuth.getInstance();
         database = FirebaseDatabase.getInstance();
         reference = database.getReference();
+        firebaseStorage = FirebaseStorage.getInstance();
+        storageReference = firebaseStorage.getReference();
 
         imageViewCircle.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -75,7 +89,7 @@ public class SignUpActivity extends AppCompatActivity {
 
     public void imageChooser(){
         Intent intent = new Intent();
-        intent.setType("images/*");
+        intent.setType("image/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);
         startActivityForResult(intent,1);
     }
@@ -89,6 +103,33 @@ public class SignUpActivity extends AppCompatActivity {
                     reference.child("Users").child(auth.getUid()).child("userName").setValue(username);
 
                     if(imageControl){
+
+                        UUID randomID = UUID.randomUUID();
+                        String imageName = "images/"+randomID+".jpg";
+                        storageReference.child(imageName).putFile(imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                            @Override
+                            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+
+                                StorageReference myStorageRef = firebaseStorage.getReference(imageName);
+                                myStorageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                    @Override
+                                    public void onSuccess(Uri uri) {
+                                        String filepath = uri.toString();
+                                        reference.child("Users").child(auth.getUid()).child("image").setValue(filepath).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                            @Override
+                                            public void onSuccess(Void unused) {
+                                                Toast.makeText(SignUpActivity.this, "Write to database is successful!", Toast.LENGTH_SHORT).show();
+                                            }
+                                        }).addOnFailureListener(new OnFailureListener() {
+                                            @Override
+                                            public void onFailure(@NonNull Exception e) {
+                                                Toast.makeText(SignUpActivity.this, "Some Problem occurs try again to write data", Toast.LENGTH_SHORT).show();
+                                            }
+                                        });
+                                    }
+                                });
+                            }
+                        });
 
 
                     }else{
@@ -113,7 +154,7 @@ public class SignUpActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable  Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode == 1 && resultCode == RESULT_OK && data != null){
-            Uri imageUri = data.getData();
+            imageUri = data.getData();
             Picasso.get().load(imageUri).into(imageViewCircle);
             imageControl= true;
         }else{

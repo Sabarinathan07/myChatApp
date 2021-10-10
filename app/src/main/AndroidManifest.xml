@@ -11,8 +11,8 @@
         android:theme="@style/Theme.MyChatApp">
         <activity android:name=".ForgetActivity"></activity>
         <activity android:name=".SignUpActivity" />
-        <activity android:name=".MyLoginActivity" />
-        <activity android:name=".MainActivity">
+        <activity android:name=".MainActivity" />
+        <activity android:name=".MyLoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
