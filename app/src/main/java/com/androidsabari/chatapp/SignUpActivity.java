@@ -1,5 +1,6 @@
 package com.androidsabari.chatapp;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -9,7 +10,13 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.squareup.picasso.Picasso;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -20,6 +27,10 @@ public class SignUpActivity extends AppCompatActivity {
     private TextInputEditText editTextEmailSignup,editTextPasswordSignup,editTextUsernameSignup;
     private Button buttonRegister;
     Boolean imageControl = false;
+
+    FirebaseAuth auth;
+    FirebaseDatabase database;
+    DatabaseReference reference;
 
 
     @Override
@@ -32,6 +43,10 @@ public class SignUpActivity extends AppCompatActivity {
         editTextPasswordSignup = findViewById(R.id.editTextPasswordSignup);
         editTextUsernameSignup = findViewById(R.id.editTextUserNameSignup);
         buttonRegister = findViewById(R.id.buttonRegister);
+
+        auth = FirebaseAuth.getInstance();
+        database = FirebaseDatabase.getInstance();
+        reference = database.getReference();
 
         imageViewCircle.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -66,7 +81,31 @@ public class SignUpActivity extends AppCompatActivity {
     }
 
     public void signup(String email,String password,String username){
+        auth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
 
+                if(task.isSuccessful()){
+                    reference.child("Users").child(auth.getUid()).child("userName").setValue(username);
+
+                    if(imageControl){
+
+
+                    }else{
+
+                        reference.child("Users").child(auth.getUid()).child("image").setValue("null");
+
+                    }
+
+                    Intent intent = new Intent(SignUpActivity.this,MainActivity.class);
+                    intent.putExtra("userName",username);
+                    startActivity(intent);
+                    finish();
+
+                }
+
+            }
+        });
     }
 
 
