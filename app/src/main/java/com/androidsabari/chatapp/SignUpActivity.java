@@ -74,16 +74,13 @@ public class SignUpActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String email = editTextEmailSignup.getText().toString().trim();
                 String password = editTextPasswordSignup.getText().toString().trim();
-                String username = editTextEmailSignup.getText().toString().trim();
+                String username = editTextUsernameSignup.getText().toString().trim();
 
                 if(!email.equals("") && !password.equals("") && !username.equals("")){
                     signup(email,password,username);
                 }
             }
         });
-
-
-
 
     }
 
