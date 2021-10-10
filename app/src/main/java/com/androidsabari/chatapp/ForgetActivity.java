@@ -50,7 +50,7 @@ public class ForgetActivity extends AppCompatActivity {
                 if(task.isSuccessful()){
                     Toast.makeText(ForgetActivity.this, "Please Check your Email", Toast.LENGTH_LONG).show();
                 }else{
-                    Toast.makeText(ForgetActivity.this, "There is a problem", Toast.LENGTH_LONG).show();
+                    Toast.makeText(ForgetActivity.this, "There is a problem! Please try again later", Toast.LENGTH_LONG).show();
 
                 }
             }
