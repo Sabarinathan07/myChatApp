@@ -67,8 +67,8 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.ViewHolder> 
                 }
                 else
                 {
-                    holder.imageViewUsers.setImageResource(R.drawable.account);
-                    //Picasso.get().load(imageURL).into(holder.imageViewUsers);
+//                    holder.imageViewUsers.setImageResource(R.drawable.account);
+                    Picasso.get().load(imageURL).into(holder.imageViewUsers);
                 }
 
                 holder.cardView.setOnClickListener(new View.OnClickListener() {
