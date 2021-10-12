@@ -71,6 +71,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:clickable="true"
+            app:backgroundTint="?attr/colorPrimary"
             app:srcCompat="@drawable/ic_baseline_send_24" />
     </LinearLayout>
 

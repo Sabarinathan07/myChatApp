@@ -78,6 +78,8 @@ public class SignUpActivity extends AppCompatActivity {
 
                 if(!email.equals("") && !password.equals("") && !username.equals("")){
                     signup(email,password,username);
+                }else{
+                    Toast.makeText(SignUpActivity.this, "Please enter all the things and try again", Toast.LENGTH_SHORT).show();
                 }
             }
         });
