@@ -8,13 +8,18 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.MyChatApp">
+        android:theme="@style/AppTheme">
         <activity android:name=".MyChatActivity"></activity>
-        <activity android:name=".ProfileActivity" />
-        <activity android:name=".ForgetActivity" />
-        <activity android:name=".SignUpActivity" />
-        <activity android:name=".MainActivity" />
-        <activity android:name=".MyLoginActivity">
+        <activity android:name=".ProfileActivity"
+            android:theme="@style/MainTheme"/>
+        <activity android:name=".ForgetActivity"
+            android:theme="@style/MainTheme"/>
+        <activity android:name=".SignUpActivity"
+            android:theme="@style/MainTheme"/>
+        <activity android:name=".MainActivity"
+            android:theme="@style/MainTheme"/>
+        <activity android:name=".MyLoginActivity"
+            android:theme="@style/MainTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
