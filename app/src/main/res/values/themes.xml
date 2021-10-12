@@ -12,14 +12,14 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
+    </style>
 
 
-
-        <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
             <!-- Customize your theme here. -->
             <item name="colorPrimary">@color/green_500</item>
             <item name="colorPrimaryDark">@color/green_700</item>
             <item name="colorAccent">@color/green_200</item>
         </style>
-    </style>
+
 </resources>
